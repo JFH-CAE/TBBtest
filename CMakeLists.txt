@@ -28,8 +28,22 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
 endif()
 
 find_package(TBB)
+
+add_library(TBB_module) #添加模块
+target_sources(TBB_module
+    PUBLIC
+        FILE_SET CXX_MODULES FILES
+        TBBModule.cppm #模块接口文件
+    PRIVATE
+    TBBModule.cpp
+)
 set(CMAKE_CXX_MODULE_STD 1)
-add_executable(app main.cpp)
+add_executable(app main.cpp
+                #TBB.cpp #测试模块时请注释掉
+            )
 
 #添加依赖关系
-target_link_libraries(app  TBB::tbb)
+target_link_libraries(TBB_module TBB::tbb)
+target_link_libraries(app TBB_module  
+                #TBB::tbb #测试模块时请注释掉
+                    )

@@ -12,6 +12,7 @@ int main()
 	return 0;
 }*/ //正常调用TBB
 
+/*
 #include <tbb/tbb.h>
 import std;
 
@@ -33,4 +34,19 @@ int main() {
 										std::this_thread::sleep_for(std::chrono::milliseconds(dist6(rng)));
 										std::cout << "Thread ID: " << std::this_thread::get_id() << std::endl;
 									});
+}*/ //使用import std; 编译错误
+
+import std;
+import TBBModule;
+
+
+int main() {
+    std::vector<int> foo;
+    foo.reserve(1000);
+    for (int i = 0; i < 1000; i++) {
+        foo.push_back(i);
+    }
+		
+	TBB_test(foo);
+  
 }
